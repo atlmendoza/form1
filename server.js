@@ -23,6 +23,7 @@ app.get('/process', (req, res) => {
     res.render('pages/acceptFormData.hbs', {formData});
 })
 
+// determine the gender description based on code
 function determineGender(gender) {
   let dGender="";
   if (gender == "f")
@@ -34,6 +35,7 @@ function determineGender(gender) {
   return dGender 
 }
 
+// determine the talent description based on code
 function determineTalent(talents) {
   for (let i in talents) {
     console.log(talents[i])
