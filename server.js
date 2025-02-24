@@ -12,18 +12,20 @@ const app = express();
 
 //Serves static files inside the public folder
 app.use(express.static(path.join(__dirname, 'public')));
+// use a templated html document with handlebars found in views/pages folder
 app.set('view engine', 'hbs');
+// converts text-based data JSON input into JS accessible variables.
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Sets a basic route index.hbs when website initially starts and when home is clicked from the nav bar or whenever a process needs to go back to home 
 app.get('/process', (req, res) => {
     const formData = req.query;
+    console.log(formData)
     formData.gender = determineGender(formData.gender);
     formData.talent = determineTalent(formData.talent);
     res.render('pages/acceptFormData.hbs', {formData});
 })
 
-// determine the gender description based on code
 function determineGender(gender) {
   let dGender="";
   if (gender == "f")
@@ -35,19 +37,26 @@ function determineGender(gender) {
   return dGender 
 }
 
-// determine the talent description based on code
 function determineTalent(talents) {
-  for (let i in talents) {
-    console.log(talents[i])
-    if (talents[i] == 'd')
-      talents[i] = "Dance"
-    else if (talents[i] == 's')
-      talents[i] = "Sing"
-    else
-      talents[i] = "Play Instruments"
-  }
+  if (talents.length > 1)
+    for (let i in talents) {
+      talents[i] = checkTalents(talents[i])
+    }
+  else
+    talents = checkTalents(talents)
   console.log(talents)
   return talents 
+}
+
+function checkTalents(t) {
+  let tString = ""
+  if (t == 'd')
+    tString = "Dance"
+  else if (t == 's')
+    tString = "Sing"
+  else if (t == 'p')
+    tString = "Play Instruments"
+  return tString;
 }
 
 
