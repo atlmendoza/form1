@@ -19,21 +19,27 @@
     <form id="login" method="get" action="process"
           onsubmit="return confirm('Accept Input')"
           onreset="return confirm('You really want it clear?')">
-      <fieldset>
+          <fieldset>
             <legend>Things About Yourself: </legend>
+              
             <label>Title: 
               <select id="utitle" name="utitle">
-                <option value="Ms"> Ms.</option>
-                <option value="Mr"> Mr.</option>
-                <option value="Mrs"> Mrs.</option>
-                <option value="Dr." selected> Dr.</option>
-                <option value="Atty."> Dr.</option>
-                <option value="Engr'"> Dr.</option>       
+                <optgroup label="Everyday">
+                  <option value="Ms"> Ms.</option>
+                  <option value="Mr"> Mr.</option>
+                  <option value="Mrs"> Mrs.</option>
+                </optgroup>
+                <optgroup label="professional title">
+                  <option value="Dr." selected> Dr.</option>
+                  <option value="Atty."> Atty.</option>
+                  <option value="Engr'"> Engr.</option>   
+                </optgroup>
               </select>
         
             </label>  
             <label for="userName">Name:</label>
-            <input type="text" id="userName" name="userName" />
+            <input onblur="toUpper(this)" type="text" id="userName" name="userName"
+                   placeholder="LN, FN MI" required/>
               
             <label>Password: <input type="password" id="pword" name="pword"/> </label>  
             <br/><br/>
